@@ -56,7 +56,7 @@ services:
     environment:
       RAILS_ENV: development
     depends_on:
-      - real_fevr_db
+      - db_postgresql
 
   # test env is simply mapped to the already built dev env image
   # but it will run in a separate container and network
@@ -82,4 +82,4 @@ services:
     environment:
       RAILS_ENV: test
     depends_on:
-      - real_fevr_db
+      - db_postgresql
