@@ -13,15 +13,3 @@ As part of this [challenge](https://realfevr.github.io/challenge/).
 | DATABASE_PASSWORD | all         | password to use database to use in `config/database.yml`          |
 
 **Development** and **Test** environments have default values.
-
-## Useful commands
-
-### Run tests
-
-```shell
-# without docker-compose
-$ rspec
-
-# using docker-compose with real_fevr_test container
-$ docker-compose run real_fevr_test rspec
-```
