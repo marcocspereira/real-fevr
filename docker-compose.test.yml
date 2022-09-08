@@ -1,0 +1,49 @@
+# docker-compose -f docker-compose.test.yml up --exit-code-from alusape_test
+version: '3.8'
+
+networks:
+  test:
+
+volumes:
+  pgdata: # for database
+  gem_cache: # for gems
+  shared_data: # for data shared between all the images
+
+services:
+  db_postgresql:
+    image: postgres:14.5
+    container_name: db_postgresql
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - shared_data:/var/shared
+    networks:
+      - test
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123456789
+    ports:
+      - 5432:5432
+
+  real_fevr_test:
+    # use image from before (development)
+    # docker by default prefixes the directory name
+    image: real-fevr_real_fevr_api
+    container_name: real_fevr_test
+    volumes:
+      - .:/var/app
+      - shared_data:/var/shared
+      - gem_cache:/usr/local/bundle/gems
+    networks:
+      test:
+    ports:
+      - 3001:3001
+    stdin_open: true
+    tty: true
+    env_file: .env.test
+    entrypoint: ['sh', 'entrypoints/test-docker-entrypoint.sh']
+    # container exit once it comes up, so we just use it to run test suite
+    command: ['rspec']
+    environment:
+      RAILS_ENV: test
+    depends_on:
+      - db_postgresql

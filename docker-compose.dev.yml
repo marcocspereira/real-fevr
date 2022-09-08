@@ -1,0 +1,61 @@
+# docker-compose -f docker-compose.dev.yml up
+
+version: '3.8'
+
+networks:
+  development:
+
+volumes:
+  pgdata: # for database
+  gem_cache: # for gems
+  shared_data: # for data shared between all the images
+
+services:
+  # use exec command to stay attached to the container
+  # docker-compose exec alusape_db sh
+  db_postgresql:
+    image: postgres:14.5
+    container_name: db_postgresql
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - shared_data:/var/shared
+    networks:
+      - development
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123456789
+    ports:
+      - 5432:5432
+
+  real_fevr_api:
+    build:
+      context: . # present working directory
+      dockerfile: Dockerfile.dev
+    container_name: real_fevr_api
+    volumes:
+      # set the bind mount for /var/app to the present directory in local file system
+      # with this bind mount in place we can change the source code for the rails application
+      # in the present directory and it will map the var app directory in the docker container
+      - .:/var/app
+      # map the shared data
+      - shared_data:/var/shared
+      # map the gem cache
+      - gem_cache:/usr/local/bundle/gems
+    networks:
+      development:
+    ports:
+      - 3000:3000
+    # tty and stdin_open are analogous to the -t and -i arguments for the docker run
+    # stdin_open used when is needed to work on a project outside docker container
+    # tty used when is needed to work on a project inside the docker container
+    # in the end, it enables us to debug the app with byebug
+    stdin_open: true
+    tty: true
+    env_file: .env.development
+    # define startup script
+    entrypoint: ['sh', 'entrypoints/dev-docker-entrypoint.sh']
+    command: ['rails', 'server', '-p', '3000', '-b', '0.0.0.0']
+    environment:
+      RAILS_ENV: development
+    depends_on:
+      - db_postgresql

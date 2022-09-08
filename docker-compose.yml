@@ -1,0 +1,85 @@
+version: '3.8'
+
+networks:
+  development:
+  test:
+
+volumes:
+  pgdata: # for database
+  gem_cache: # for gems
+  shared_data: # for data shared between all the images
+
+services:
+  db_postgresql:
+    image: postgres:14.5
+    container_name: real_fevr_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - shared_data:/var/shared
+    networks:
+      - development
+      - test
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123456789
+    ports:
+      - 5432:5432
+
+  real_fevr_api:
+    build:
+      context: . # present working directory
+      dockerfile: Dockerfile
+    container_name: real_fevr_api
+    volumes:
+      # set the bind mount for /var/app to the present directory in local file system
+      # with this bind mount in place we can change the source code for the rails application
+      # in the present directory and it will map the var app directory in the docker container
+      - .:/var/app
+      # map the shared data
+      - shared_data:/var/shared
+      # map the gem cache
+      - gem_cache:/usr/local/bundle/gems
+    networks:
+      development:
+    ports:
+      - 3000:3000
+    # tty and stdin_open are analogous to the -t and -i arguments for the docker run
+    # stdin_open used when is needed to work on a project outside docker container
+    # tty used when is needed to work on a project inside the docker container
+    # in the end, it enables us to debug the app with byebug
+    stdin_open: true
+    tty: true
+    env_file: .env.development
+    # define startup script
+    entrypoint: dev-entrypoint.sh
+    command: ['rails', 'server', '-p', '3000', '-b', '0.0.0.0']
+    environment:
+      RAILS_ENV: development
+    depends_on:
+      - real_fevr_db
+
+  # test env is simply mapped to the already built dev env image
+  # but it will run in a separate container and network
+  # this allow us to tun the dev server and test suite simultaneously
+  # usage: docker-compose run --rm alusape_test rails rspec
+  real_fevr_test:
+    image: real-fevr_real_fevr_api
+    container_name: real_fevr_test
+    volumes:
+      - .:/var/app
+      - shared_data:/var/shared
+      - gem_cache:/usr/local/bundle/gems
+    networks:
+      test:
+    ports:
+      - 3001:3000
+    stdin_open: true
+    tty: true
+    env_file: .env.test
+    entrypoint: test-entrypoint.sh
+    # container exit once it comes up, so we just use it to run test suite
+    command: ['rspec']
+    environment:
+      RAILS_ENV: test
+    depends_on:
+      - real_fevr_db
