@@ -82,5 +82,7 @@ group :test do
 
   # generate coverage reports for tests
   gem 'simplecov'
+
+  gem 'httparty'
 end
 
