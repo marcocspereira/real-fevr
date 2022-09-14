@@ -11,6 +11,8 @@ bundle check || bundle install
 
 bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:setup
 
+bundle exec rake db:seed:players
+
 # remove pid from previous session (puma server)
 rm -f $APP_PATH/tmp/pids/server.pid
 
