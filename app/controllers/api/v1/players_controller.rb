@@ -30,7 +30,7 @@ module Api::V1
     end
 
     # PUT /api/v1/players/:id
-    def updated
+    def update
       player = Player.find(params[:id])
       player.update!(player_params)
 
