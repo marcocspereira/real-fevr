@@ -61,7 +61,7 @@ services:
   # test env is simply mapped to the already built dev env image
   # but it will run in a separate container and network
   # this allow us to tun the dev server and test suite simultaneously
-  # usage: docker-compose run --rm alusape_test rails rspec
+  # usage: docker-compose run --rm real_fevr_test rails rspec
   real_fevr_test:
     image: real-fevr_real_fevr_api
     container_name: real_fevr_test
