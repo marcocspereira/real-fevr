@@ -28,5 +28,9 @@ module App
       # This automatically adds id: :uuid to create_table in all future migrations.
       g.orm :active_record, primary_key_type: :uuid
     end
+
+    config.session_store :cookie_store, key: '_interslice_session'
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use config.session_store, config.session_options
   end
 end
