@@ -39,7 +39,11 @@ gem "bootsnap", require: false
 # Authorization checks
 gem 'pundit'
 
+# Makes http fun again! Ain't no party like a httparty, because a httparty don't stop.
 gem 'httparty'
+
+# support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications
+gem 'rack-cors'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
