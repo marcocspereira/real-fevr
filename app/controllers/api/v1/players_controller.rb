@@ -20,11 +20,22 @@ module Api::V1
              json: PlayerSerializer.new(player).serialize
     end
 
+    # POST /api/v1/players
     def create
+      player = Player.new(player_params)
+      player.save!
 
+      render status: :created,
+             json: PlayerSerializer.new(player).serialize
     end
 
+    # PUT /api/v1/players/:id
     def updated
+      player = Player.find(params[:id])
+      player.update!(player_params)
+
+      render status: :ok,
+             json: PlayerSerializer.new(player).serialize
     end
 
     # DELETE /api/v1/players/:id
@@ -39,6 +50,10 @@ module Api::V1
 
     def authorize_player
       authorize Player
+    end
+
+    def player_params
+      params.require(:player).permit(:id, :birthdate, :name, :nationality, :number, :position)
     end
   end
 end

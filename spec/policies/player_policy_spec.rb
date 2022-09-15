@@ -10,6 +10,9 @@ RSpec.describe PlayerPolicy, type: :policy do
 
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:show) }
+    it { is_expected.to permit_action(:create) }
+    it { is_expected.to permit_action(:update) }
+    it { is_expected.to permit_action(:destroy) }
   end
 
   context 'when is a basic user' do
@@ -17,6 +20,9 @@ RSpec.describe PlayerPolicy, type: :policy do
 
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:show) }
+    it { is_expected.to forbid_action(:create) }
+    it { is_expected.to forbid_action(:update) }
+    it { is_expected.to forbid_action(:destroy) }
   end
 
   context 'when is public' do
@@ -24,5 +30,8 @@ RSpec.describe PlayerPolicy, type: :policy do
 
     it { is_expected.to permit_action(:index) }
     it { is_expected.to permit_action(:show) }
+    it { is_expected.to forbid_action(:create) }
+    it { is_expected.to forbid_action(:update) }
+    it { is_expected.to forbid_action(:destroy) }
   end
 end
