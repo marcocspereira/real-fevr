@@ -84,11 +84,5 @@ RSpec.configure do |config|
   end
 
   config.include RequestHelper
-  config.include Devise::Test::IntegrationHelpers, type: :request
-  config.include ControllerMacros
-  # These helpers contribute to create login method
-  #config.include Devise::Test::ControllerHelpers, :type => :controller
-  #config.include Devise::Test::IntegrationHelpers, type: :request
-  # Warden is what Devise is based on. It is a general Rack authentication framework.
-  #config.include Warden::Test::Helpers
+  config.include ControllerSpecHelper
 end

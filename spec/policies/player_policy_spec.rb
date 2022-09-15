@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PlayerPolicy, type: :policy do
   subject { described_class.new(user, Player) }
 
-  let(:article) { create(:article) }
+  let(:player) { create(:player) }
 
   context 'when is an admin' do
     let(:user) { create(:admin) }

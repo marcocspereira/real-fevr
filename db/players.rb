@@ -16,7 +16,7 @@ end
 
 puts('Parse and persist data')
 data_hash = JSON.parse(json_data)
-players = data_hash.dig('data','teams').map{ |team| team['players'] }
+players = data_hash.dig('data','teams').map{ |team| team['players'] }.flatten
+players.map{ |player| player['number'] = nil if player['number'] == 'nil' }
 Player.create!(players)
 puts('End of players seed task')
-#puts(players)
