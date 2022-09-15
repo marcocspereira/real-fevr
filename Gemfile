@@ -39,6 +39,8 @@ gem "bootsnap", require: false
 # Authorization checks
 gem 'pundit'
 
+gem 'httparty'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -83,6 +85,6 @@ group :test do
   # generate coverage reports for tests
   gem 'simplecov'
 
-  gem 'httparty'
+  
 end
 
