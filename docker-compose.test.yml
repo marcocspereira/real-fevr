@@ -1,4 +1,4 @@
-# docker-compose -f docker-compose.test.yml up --exit-code-from alusape_test
+# docker-compose -f docker-compose.test.yml up
 version: '3.8'
 
 networks:
@@ -27,7 +27,7 @@ services:
   real_fevr_test:
     # use image from before (development)
     # docker by default prefixes the directory name
-    image: real-fevr_real_fevr_api
+    image: real-fevr-real_fevr_api
     container_name: real_fevr_test
     volumes:
       - .:/var/app
@@ -45,5 +45,6 @@ services:
     command: ['rspec']
     environment:
       RAILS_ENV: test
+      DEVISE_JWT_SECRET_KEY: 72e91de180dbfd24a746e9798293d6c7bab3391471d3363dc5bd374bd47318c431b173679788569966f639cd9b771ab5dd5f2751e6b1f9036cca8516aa1c2ff1
     depends_on:
       - db_postgresql
