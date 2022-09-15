@@ -1,0 +1,2 @@
+class PlayerSerializer < Serializer
+end

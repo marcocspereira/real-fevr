@@ -1,11 +1,20 @@
 module Api::V1
   class PlayersController < ApplicationController
 
-    before_action :authenticate_api_v1_user!
+    skip_before_action :authenticate_user!, only: %i[index]
+    before_action :authorize_player
 
     def index
+      players = Player.all
+
       render status: :ok,
-            json: {}
+             json: PlayerSerializer.new(players).serialize
+    end
+
+    private
+
+    def authorize_player
+      authorize Player
     end
   end
 end
