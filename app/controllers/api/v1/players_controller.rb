@@ -12,6 +12,7 @@ module Api::V1
              json: PlayerSerializer.new(players).serialize
     end
 
+    # GET /api/v1/players/:id
     def show
       player = Player.find(params[:id])
 
@@ -26,8 +27,12 @@ module Api::V1
     def updated
     end
 
+    # DELETE /api/v1/players/:id
     def destroy
+      Player.destroy(params[:id])
 
+      render status: :ok,
+             json: {}
     end
 
     private
