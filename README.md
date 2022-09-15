@@ -22,7 +22,7 @@ As part of this [challenge](https://realfevr.github.io/challenge/).
 
 [+] CRUD endpoints for player
 
-[ ] CRUD endpoints for notifications
+[+] CRUD endpoints for notifications
 
 [ ] Subscribing notifications
 
