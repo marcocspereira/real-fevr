@@ -1,0 +1,2 @@
+class NotificationSerializer < Serializer
+end

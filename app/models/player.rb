@@ -12,6 +12,7 @@
 #  updated_at  :datetime         not null
 #
 class Player < ApplicationRecord
+  has_many :notifications, dependent: :destroy
 
   POSITIONS = %w(G D M A).freeze
 

@@ -10,10 +10,6 @@ RSpec.describe 'PUT /api/v1/players/:id', type: :request do
     let(:headers) { valid_headers }
     let(:player) { create(:player) }
 
-    #before do
-    #  catalog
-    #end
-
     describe 'with admin permission' do
       let(:user) { create(:admin) }
 
