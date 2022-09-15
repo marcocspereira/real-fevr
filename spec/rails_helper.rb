@@ -22,6 +22,8 @@ require 'rspec/rails'
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
+require 'pundit/matchers'
+
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
@@ -81,7 +83,7 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  
+  config.include RequestHelper
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include ControllerMacros
   # These helpers contribute to create login method
