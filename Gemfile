@@ -33,17 +33,18 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# Devise is a flexible authentication solution for Rails based on Warden.
+gem 'devise'
+gem 'devise-jwt'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem "rack-cors"
+gem 'rack-cors'
 
 # Authorization checks
 gem 'pundit'
 
 # Makes http fun again! Ain't no party like a httparty, because a httparty don't stop.
 gem 'httparty'
-
-# support for Cross-Origin Resource Sharing (CORS) for Rack compatible web applications
-gem 'rack-cors'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
