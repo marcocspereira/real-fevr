@@ -6,5 +6,4 @@ FactoryBot.define do
     position { Player::POSITIONS.sample }
     sequence(:number) { |n| n }
   end
-
 end

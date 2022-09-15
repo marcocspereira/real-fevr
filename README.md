@@ -20,30 +20,30 @@ As part of this [challenge](https://realfevr.github.io/challenge/).
 
 #### Endpoints
 
-[+] CRUD endpoints for players
+[+] CRUD endpoints for player
 
-[+] CRUD endpoints for notifications
+[ ] CRUD endpoints for notifications
 
-[+] Subscribing notifications
+[ ] Subscribing notifications
 
 #### Models
 
-[+] ~~Player model~~~
+[+] Player model
 
-[+] ~~Notification model~~~
+[+] Notification model
 
 #### Tasks
 
-[+] ~~Task that is responsible for fetching information regarding to players and updating them on DB~~~
+[+] Task that is responsible for fetching information regarding to players and updating them on DB
 
-[+] Task responsible for deleting notifications older then one week
+[ ] Task responsible for deleting notifications older then one week
 
-[+] User should be notified when a notification for the players he subscribed is triggered
+[ ] User should be notified when a notification for the players he subscribed is triggered
 
 #### Bonus
 
-[+] Sorting on player’s listing based on position, nationality or age
+[ ] Sorting on player’s listing based on position, nationality or age
 
-[+] Players listing pagination
+[ ] Players listing pagination
 
-[+] Endpoints documentation
+[ ] Endpoints documentation
