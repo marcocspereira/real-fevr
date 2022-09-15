@@ -1,7 +1,7 @@
 module Api::V1
   class PlayersController < ApplicationController
 
-    skip_before_action :authenticate_request, only: %i[index]
+    skip_before_action :authenticate_request, only: %i[index show]
     before_action :authorize_player
 
     # GET /api/v1/players
@@ -10,6 +10,24 @@ module Api::V1
 
       render status: :ok,
              json: PlayerSerializer.new(players).serialize
+    end
+
+    def show
+      player = Player.find(params[:id])
+
+      render status: :ok,
+             json: PlayerSerializer.new(player).serialize
+    end
+
+    def create
+
+    end
+
+    def updated
+    end
+
+    def destroy
+
     end
 
     private

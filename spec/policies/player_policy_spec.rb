@@ -9,17 +9,20 @@ RSpec.describe PlayerPolicy, type: :policy do
     let(:user) { create(:admin) }
 
     it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:show) }
   end
 
   context 'when is a basic user' do
     let(:user) { create(:user) }
 
     it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:show) }
   end
 
   context 'when is public' do
     let(:user) { nil }
 
     it { is_expected.to permit_action(:index) }
+    it { is_expected.to permit_action(:show) }
   end
 end
