@@ -17,5 +17,7 @@
 #  fk_rails_...  (player_id => players.id)
 #
 class Notification < ApplicationRecord
+  belongs_to :player
 
+  validates :message, presence: true
 end
