@@ -13,4 +13,8 @@
 #
 class Player < ApplicationRecord
 
+  POSITIONS = %w(G D M A).freeze
+
+  validates :position, inclusion: { in: POSITIONS }
+  validates :number, numericality: { greater_than_or_equal_to: 0 }
 end
