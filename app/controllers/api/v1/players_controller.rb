@@ -4,6 +4,7 @@ module Api::V1
     skip_before_action :authenticate_request, only: %i[index]
     before_action :authorize_player
 
+    # GET /api/v1/players
     def index
       players = Player.all
 
