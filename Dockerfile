@@ -25,6 +25,7 @@ RUN apt-get update -qq \
     && rm -rf
 
 RUN apt-get install -y \
+cron \
 apt-utils \
 git \
 build-essential \
@@ -55,6 +56,8 @@ RUN gem install bundler --version "$BUNDLE_VERSION"
 
 # remove gem home defined by rubygems
 RUN rm -rf $GEM_HOME/cache/*
+
+#RUN service cron start
 
 # set the working directory
 WORKDIR $APP_PATH
