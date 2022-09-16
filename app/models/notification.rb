@@ -20,4 +20,9 @@ class Notification < ApplicationRecord
   belongs_to :player
 
   validates :message, presence: true
+
+  def self.clean_old
+    puts 'cu'
+    where('created_at > ?', 1.week.ago).destroy_all
+  end
 end
