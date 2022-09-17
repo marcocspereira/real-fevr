@@ -13,6 +13,7 @@
 #
 class Player < ApplicationRecord
   has_many :notifications, dependent: :destroy
+  has_many :player_subscriptions, dependent: :destroy
 
   POSITIONS = %w(G D M A).freeze
 
