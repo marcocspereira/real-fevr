@@ -1,8 +1,18 @@
 module Api::V1
   class PlayersController < ApplicationController
 
-    skip_before_action :authenticate_request, only: %i[index show]
+    skip_before_action :authenticate_request, only: %i[index show subscribe]
     before_action :authorize_player
+
+    # POST api/v1/players/:id/subscribe
+    def subscribe
+      player = Player.find(params[:player_id])
+      subscription = PlayerSubscription.new(player: player, user: current_user)
+      subscription.save!
+
+      render status: :created,
+             json: {}
+    end
 
     # GET /api/v1/players
     def index
