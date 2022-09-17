@@ -16,7 +16,10 @@ gem "puma", "~> 5.0"
 # gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+gem "redis"
+
+# Simple, efficient background processing for Ruby
+gem 'sidekiq'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -43,9 +46,6 @@ gem 'pundit'
 
 # Makes http fun again! Ain't no party like a httparty, because a httparty don't stop.
 gem 'httparty'
-
-# Cron jobs
-gem 'whenever', require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -25,7 +25,6 @@ RUN apt-get update -qq \
     && rm -rf
 
 RUN apt-get install -y \
-cron \
 apt-utils \
 git \
 build-essential \
