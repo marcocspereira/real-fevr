@@ -2,10 +2,8 @@
 
 version: '3.8'
 
-networks:
-  development:
-
 volumes:
+  redis: # for redis
   pgdata: # for database
   gem_cache: # for gems
   shared_data: # for data shared between all the images
@@ -19,18 +17,35 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - shared_data:/var/shared
-    networks:
-      - development
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 123456789
     ports:
-      - 5432:5432
+      - '5432:5432'
 
+  redis:
+    image: redis
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/data'
+
+  sidekiq:
+    depends_on:
+      - db_postgresql
+      - redis
+    build: .
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - .:/var/app
+      - gem_cache:/usr/local/bundle/gems
+    environment:
+      REDIS_URL_SIDEKIQ: redis://redis:6379/12
   real_fevr_api:
     build:
       context: . # present working directory
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     container_name: real_fevr_api
     volumes:
       # set the bind mount for /var/app to the present directory in local file system
@@ -41,10 +56,8 @@ services:
       - shared_data:/var/shared
       # map the gem cache
       - gem_cache:/usr/local/bundle/gems
-    networks:
-      development:
     ports:
-      - 3000:3000
+      - '3000:3000'
     # tty and stdin_open are analogous to the -t and -i arguments for the docker run
     # stdin_open used when is needed to work on a project outside docker container
     # tty used when is needed to work on a project inside the docker container
@@ -55,7 +68,12 @@ services:
     # define startup script
     entrypoint: ['sh', 'entrypoints/dev-docker-entrypoint.sh']
     command: ['rails', 'server', '-p', '3000', '-b', '0.0.0.0']
+    links:
+      - db_postgresql
+      - redis
     environment:
       RAILS_ENV: development
+      REDIS_URL_SIDEKIQ: redis://redis:6379/12
     depends_on:
       - db_postgresql
+      - redis
