@@ -8,13 +8,13 @@ As part of this [challenge](https://realfevr.github.io/challenge/).
 
 ### API
 
+http://localhost:3000/api/v1/...
+
 ### Front-end
 
 http://localhost:4200/...
 
 ## Useful commands
-
-http://localhost:3000/api/v1/...
 
 ### Run just API server
 
