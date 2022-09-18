@@ -42,6 +42,7 @@ services:
       - gem_cache:/usr/local/bundle/gems
     environment:
       REDIS_URL_SIDEKIQ: redis://redis:6379/12
+
   real_fevr_api:
     build:
       context: . # present working directory

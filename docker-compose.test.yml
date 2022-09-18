@@ -1,10 +1,8 @@
 # docker-compose -f docker-compose.test.yml up
 version: '3.8'
 
-networks:
-  test:
-
 volumes:
+  redis: # for redis
   pgdata: # for database
   gem_cache: # for gems
   shared_data: # for data shared between all the images
@@ -16,13 +14,31 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - shared_data:/var/shared
-    networks:
-      - test
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 123456789
     ports:
       - 5432:5432
+
+  redis:
+    image: redis
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/data'
+
+  sidekiq:
+    depends_on:
+      - db_postgresql
+      - redis
+    build: .
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - .:/var/app
+      - gem_cache:/usr/local/bundle/gems
+    environment:
+      REDIS_URL_SIDEKIQ: redis://redis:6379/12
 
   real_fevr_test:
     # use image from before (development)
@@ -33,8 +49,6 @@ services:
       - .:/var/app
       - shared_data:/var/shared
       - gem_cache:/usr/local/bundle/gems
-    networks:
-      test:
     ports:
       - 3001:3001
     stdin_open: true
