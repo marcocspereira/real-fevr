@@ -1,10 +1,10 @@
 version: '3.8'
 
 networks:
-  development:
-  test:
+  fullstack:
 
 volumes:
+  redis: # for redis
   pgdata: # for database
   gem_cache: # for gems
   shared_data: # for data shared between all the images
@@ -12,24 +12,42 @@ volumes:
 services:
   db_postgresql:
     image: postgres:14.5
-    container_name: real_fevr_db
+    container_name: db_postgresql
     volumes:
       - pgdata:/var/lib/postgresql/data
       - shared_data:/var/shared
-    networks:
-      - development
-      - test
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 123456789
     ports:
-      - 5432:5432
+      - '5432:5432'
 
-  real_fevr_api:
+  redis:
+    image: redis
+    command: redis-server
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis:/data'
+
+  sidekiq:
+    depends_on:
+      - db_postgresql
+      - redis
+      - rails_api
+    build: .
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - .:/var/app
+      - gem_cache:/usr/local/bundle/gems
+    environment:
+      REDIS_URL_SIDEKIQ: redis://redis:6379/12
+
+  rails_api:
     build:
       context: . # present working directory
       dockerfile: Dockerfile
-    container_name: real_fevr_api
+    container_name: real_fevr_api_fullstack
     volumes:
       # set the bind mount for /var/app to the present directory in local file system
       # with this bind mount in place we can change the source code for the rails application
@@ -39,10 +57,8 @@ services:
       - shared_data:/var/shared
       # map the gem cache
       - gem_cache:/usr/local/bundle/gems
-    networks:
-      development:
     ports:
-      - 3000:3000
+      - '3000:3000'
     # tty and stdin_open are analogous to the -t and -i arguments for the docker run
     # stdin_open used when is needed to work on a project outside docker container
     # tty used when is needed to work on a project inside the docker container
@@ -51,35 +67,32 @@ services:
     tty: true
     env_file: .env.development
     # define startup script
-    entrypoint: dev-entrypoint.sh
+    entrypoint: ['sh', 'entrypoints/dev-docker-entrypoint.sh']
     command: ['rails', 'server', '-p', '3000', '-b', '0.0.0.0']
+    links:
+      - db_postgresql
+      - redis
     environment:
       RAILS_ENV: development
+      REDIS_URL_SIDEKIQ: redis://redis:6379/12
     depends_on:
       - db_postgresql
+      - redis
 
-  # test env is simply mapped to the already built dev env image
-  # but it will run in a separate container and network
-  # this allow us to tun the dev server and test suite simultaneously
-  # usage: docker-compose run --rm real_fevr_test rails rspec
-  real_fevr_test:
-    image: real-fevr_real_fevr_api
-    container_name: real_fevr_test
-    volumes:
-      - .:/var/app
-      - shared_data:/var/shared
-      - gem_cache:/usr/local/bundle/gems
-    networks:
-      test:
+  # Front-end
+  client_angular:
+    build:
+      context: ./angular
+      dockerfile: Dockerfile.dev
+    container_name: real_fevr_client_fullstack
     ports:
-      - 3001:3000
-    stdin_open: true
-    tty: true
-    env_file: .env.test
-    entrypoint: test-entrypoint.sh
-    # container exit once it comes up, so we just use it to run test suite
-    command: ['rspec']
+      - 4200:4200
+    command: >
+      sh -c "ng serve --host 0.0.0.0"
+    volumes:
+      - /app/node_modules
+      - ./angular:/usr/app/
     environment:
-      RAILS_ENV: test
+      CHOKIDAR_USEPOLLING: 'true'
     depends_on:
-      - db_postgresql
+      - rails_api
