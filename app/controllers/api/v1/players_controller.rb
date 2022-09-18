@@ -5,7 +5,6 @@ module Api::V1
     before_action :authorize_player
 
     # POST api/v1/players/:id/subscribe
-    # TODO: change route from GET to POST
     def subscribe
       player = Player.find(params[:player_id])
       subscription = PlayerSubscription.new(player: player, user: current_user)
