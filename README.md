@@ -2,7 +2,7 @@
 
 As part of this [challenge](https://realfevr.github.io/challenge/).
 
-**Disclaimer:** Front-end app still not implemented. Just the boilerplate!
+**Disclaimer:** Front-end (Angular) app still not implemented. Just the boilerplate!
 
 ## Addresses
 
@@ -58,7 +58,7 @@ Exceptionally, **Development** and **Test** environments have default values.
 
 ## Troubleshooting
 
-- If sidekiq dies the first time you run `docker-compuse up --build`, wait until api install, then run `docker-compuse up --build` once again
+- If sidekiq dies the first time you run `docker-compose up --build`, wait until api install, then run `docker-compose up --build` once again
 
 ---
 
