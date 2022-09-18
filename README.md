@@ -2,6 +2,8 @@
 
 As part of this [challenge](https://realfevr.github.io/challenge/).
 
+**Disclaimer:** Front-end app still not implemented!
+
 ## Useful commands
 
 ### Run just API
