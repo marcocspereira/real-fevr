@@ -29,6 +29,6 @@ class Notification < ApplicationRecord
 
   def self.clean_old
     Rails.logger.info "Clean_old task"
-    where('created_at > ?', 1.week.ago).destroy_all
+    where('created_at < ?', 1.week.ago).destroy_all
   end
 end

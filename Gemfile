@@ -21,6 +21,9 @@ gem "redis"
 # Simple, efficient background processing for Ruby
 gem 'sidekiq'
 
+# Is an extension to Sidekiq that pushes jobs in a scheduled way, mimicking cron utility.
+gem 'sidekiq-scheduler'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
