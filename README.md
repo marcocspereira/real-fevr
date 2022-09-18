@@ -76,7 +76,7 @@ Exceptionally, **Development** and **Test** environments have default values.
 
 - Allow to sort players DESC
 - Implement proper logout
-- Use framework for proper endpoints documentation, since the
+- Use framework for proper endpoints documentation
 - Remove the code smell that avoids to test a feature with Rails integration
 - Add specs to features that depends of Redis and Sidekiq
 - Fix task responsible for deleting notifications older then one week, since it is registered but it is not running
