@@ -1,0 +1,17 @@
+version: '3'
+services:
+  real_fevr_client:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: 'real_fevr_client'
+    volumes:
+      - .:/usr/app/
+    working_dir: /usr/app/
+    ports:
+      - 4200:4200
+    # to create a new app in current directory
+    # sh -c "ng new <directory-name> --directory ./"
+    # sh -c "npm start"
+    command: >
+      sh -c "ng new angular_client --directory ./"
