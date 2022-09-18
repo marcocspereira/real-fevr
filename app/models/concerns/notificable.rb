@@ -6,8 +6,8 @@ module Notificable
   end
 
   def send_notifications_to_subscribers
-    return unless self.respond_to? :resource_id
+    return unless self.respond_to? :resource
     
-    NotifierJob.perform_later(resource_id)
+    NotifierJob.perform_later(resource, message)
   end
 end

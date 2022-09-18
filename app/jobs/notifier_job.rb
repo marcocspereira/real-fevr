@@ -1,12 +1,10 @@
 class NotifierJob < ApplicationJob
   queue_as :default
 
-  def perform(resource_id)
-    # Simulates a long, time-consuming task
-    sleep 5
-    puts "NotifierJob: #{resource_id}"
+  def perform(resource, message)
     # Will display current time, milliseconds included
-    p "hello from NotifierJob #{Time.now().strftime('%F - %H:%M:%S.%L')}"
-    NotifierService.publish(resource_id)
+    puts "Hello from NotifierJob #{Time.now().strftime('%F - %H:%M:%S.%L')}"
+
+    NotifierService.publish(resource, message)
   end
 end

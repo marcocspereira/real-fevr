@@ -23,8 +23,8 @@ class Notification < ApplicationRecord
 
   validates :message, presence: true
 
-  def resource_id
-    player_id
+  def resource
+    Player.find(player_id)
   end
 
   def self.clean_old

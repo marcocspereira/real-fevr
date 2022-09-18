@@ -18,7 +18,8 @@ class PlayerSubscription < ApplicationRecord
   belongs_to :user
   belongs_to :player
 
-  scope :subscribers_ids, lambda { |player_id|
+  scope :player_subscribers_ids, lambda { |player_id|
     where(player_id: player_id).pluck(:user_id)
   }
+  
 end
