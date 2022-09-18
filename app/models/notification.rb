@@ -17,12 +17,18 @@
 #  fk_rails_...  (player_id => players.id)
 #
 class Notification < ApplicationRecord
-  belongs_to :player
+  include Notificable
+
+  belongs_to :player, class_name: 'Player', foreign_key: 'player_id'
 
   validates :message, presence: true
 
+  def resource
+    Player.find(player_id)
+  end
+
   def self.clean_old
-    puts 'cu'
+    Rails.logger.info "Clean_old task"
     where('created_at > ?', 1.week.ago).destroy_all
   end
 end

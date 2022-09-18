@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_15_084754) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_16_075927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_084754) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_notifications_on_player_id"
+  end
+
+  create_table "player_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "player_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_player_subscriptions_on_player_id"
+    t.index ["user_id", "player_id"], name: "index_player_subscriptions_on_user_id_and_player_id", unique: true
+    t.index ["user_id"], name: "index_player_subscriptions_on_user_id"
   end
 
   create_table "players", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

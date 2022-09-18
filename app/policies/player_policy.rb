@@ -1,4 +1,8 @@
 class PlayerPolicy < ApplicationPolicy
+  def subscribe?
+    true
+  end
+
   def index?
     true
   end
