@@ -62,6 +62,25 @@ Exceptionally, **Development** and **Test** environments have default values.
 
 ---
 
+## Endpoints
+
+### Notifications
+
+- **GET http://localhost:3000/api/v1/notifications** to list notifications
+- **POST http://localhost:3000/api/v1/notifications** to create a notification, giving **player_id** and **message**
+- DELETE http://localhost:3000/api/v1/notifications/:id to remove a given notification based on its **id**
+
+### Players
+
+- **POST http://localhost:3000/api/v1/players/:player_id/subscribe** to subscribe to notification for a given player, where **player_id** is mandatory
+- **GET http://localhost:3000/api/v1/players?page=:page&per_page=:per_page&order_by=:position** to list players, where **page**, **per_page** and **order_by** (birthdate, nationality an position) can be optionally defined
+- **GET http://localhost:3000/api/v1/players/:id** show a given player
+- **POST http://localhost:3000/api/v1/players/** to create a player, giving birthdate, name, nationality, number and position
+- PUT http://localhost:3000/api/v1/players/:id\*\* to update a given player
+- DELETE http://localhost:3000/api/v1/players/:id\*\* to delete a given player
+
+---
+
 ## Requirements
 
 [+] API
