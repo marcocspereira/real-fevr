@@ -24,7 +24,7 @@ As part of this [challenge](https://realfevr.github.io/challenge/).
 
 [+] CRUD endpoints for notifications
 
-[ ] Subscribing notifications
+[+] Subscribing notifications
 
 #### Models
 
@@ -38,7 +38,7 @@ As part of this [challenge](https://realfevr.github.io/challenge/).
 
 [ ] Task responsible for deleting notifications older then one week
 
-[ ] User should be notified when a notification for the players he subscribed is triggered
+[+] User should be notified when a notification for the players he subscribed is triggered
 
 #### Bonus
 
