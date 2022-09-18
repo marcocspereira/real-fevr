@@ -68,7 +68,7 @@ services:
     env_file: .env.development
     # define startup script
     entrypoint: ['sh', 'entrypoints/dev-docker-entrypoint.sh']
-    command: ['rails', 'server', '-p', '3000', '-b', '0.0.0.0']
+    command: [']
     links:
       - db_postgresql
       - redis

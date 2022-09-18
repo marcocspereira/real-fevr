@@ -6,6 +6,8 @@ RSpec.describe 'POST /api/v1/players/:player_id/subscribe', type: :request do
   let(:endpoint) { "/api/v1/players/#{player.id}/subscribe" }
   let(:player) { create(:player) }
 
+  before { player }
+
   describe 'with valid headers' do
     # authorize request
     let(:headers) { valid_headers }

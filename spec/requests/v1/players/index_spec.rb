@@ -1,8 +1,5 @@
 require 'rails_helper'
 
-
-# IMPLEMENTAR TESTE AO INDEX E DESTROY COM LOGIN  
-
 RSpec.describe 'GET /api/v1/players', type: :request do
   let(:endpoint) { '/api/v1/players' }
 
@@ -54,5 +51,3 @@ RSpec.describe 'GET /api/v1/players', type: :request do
     end
   end
 end
-
-

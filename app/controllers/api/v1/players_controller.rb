@@ -1,7 +1,7 @@
 module Api::V1
   class PlayersController < ApplicationController
 
-    skip_before_action :authenticate_request, only: %i[index show subscribe]
+    skip_before_action :authenticate_request, only: %i[index show]
     before_action :authorize_player
 
     # POST api/v1/players/:id/subscribe
@@ -9,16 +9,16 @@ module Api::V1
       player = Player.find(params[:player_id])
       subscription = PlayerSubscription.new(player: player, user: current_user)
       subscription.save!
-      #Notification.create!(player: Player.first, message: "oi")
 
       render status: :created,
              json: {}
     end
 
-    # GET /api/v1/players
+    # GET /api/v1/players?page=:page&per_page=:per_page&order_by=:position
     def index
-      players = Player.all
-
+      players = Player.all.order(order_by)
+                      .limit(per_page).offset(paginate_offset)
+      
       render status: :ok,
              json: PlayerSerializer.new(players).serialize
     end
@@ -65,6 +65,17 @@ module Api::V1
 
     def player_params
       params.require(:player).permit(:id, :birthdate, :name, :nationality, :number, :position)
+    end
+
+    def search_for
+      return unless params[:search]
+
+      params.require(:search).permit(:product_type, :reference)
+    end
+
+    def order_by
+      return 'id' unless params[:order_by]
+      params[:order_by] if %(position nationality birthdate).include?(params[:order_by])
     end
   end
 end
