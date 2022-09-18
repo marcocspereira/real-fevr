@@ -2,11 +2,21 @@
 
 As part of this [challenge](https://realfevr.github.io/challenge/).
 
-**Disclaimer:** Front-end app still not implemented!
+**Disclaimer:** Front-end app still not implemented. Just the boilerplate!
+
+## Addresses
+
+### API
+
+### Front-end
+
+http://localhost:4200/...
 
 ## Useful commands
 
-### Run just API
+http://localhost:3000/api/v1/...
+
+### Run just API server
 
 ```shell
 # without docker-compose
@@ -15,13 +25,21 @@ $ rails s -p 3000 -b 0.0.0.0
 $ docker-compose -f docker-compose.dev.yml up --build
 ```
 
-### Run tests
+### Run API tests
 
 ```shell
 # without docker-compose
 $ rspec
 # using docker-compose with real_fevr_test container
 $ docker-compose -f docker-compose.test.yml up --build
+```
+
+### Run API + Client
+
+Not work properly, yet.
+
+```shell
+$ docker-compose up --build
 ```
 
 ## Environment files
@@ -35,6 +53,12 @@ $ docker-compose -f docker-compose.test.yml up --build
 | DATABASE_PASSWORD | all         | password to use database to use in `config/database.yml`          |
 
 Exceptionally, **Development** and **Test** environments have default values.
+
+---
+
+## Troubleshooting
+
+- If sidekiq dies the first time you run `docker-compuse up --build`, wait until api install, then run `docker-compuse up --build` once again
 
 ---
 
