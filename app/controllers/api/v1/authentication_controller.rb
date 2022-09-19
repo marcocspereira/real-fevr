@@ -12,6 +12,7 @@ module Api::V1 # :nodoc:
         time = Time.now + 24.hours.to_i
         render  status: :ok,
                 json: { token: token,
+                        user: { email: @user.email, is_admin: @user.admin },
                         exp: time.strftime("%m-%d-%Y %H:%M") }
       else
         render  status: :unauthorized,

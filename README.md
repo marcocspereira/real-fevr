@@ -19,18 +19,12 @@ http://localhost:4200/...
 ### Run just API server
 
 ```shell
-# without docker-compose
-$ rails s -p 3000 -b 0.0.0.0
-# using docker-compose with real_fevr_api container
 $ docker-compose -f docker-compose.dev.yml up --build
 ```
 
 ### Run API tests
 
 ```shell
-# without docker-compose
-$ rspec
-# using docker-compose with real_fevr_test container
 $ docker-compose -f docker-compose.test.yml up --build
 ```
 
@@ -58,7 +52,7 @@ Exceptionally, **Development** and **Test** environments have default values.
 
 ## Troubleshooting
 
-- If sidekiq dies the first time you run `docker-compose up --build`, wait until api install, then run `docker-compose up --build` once again
+- If sidekiq dies the first time you run any `docker-compose up --build`, wait until api install, then run `docker-compose up --build` once again
 
 ---
 

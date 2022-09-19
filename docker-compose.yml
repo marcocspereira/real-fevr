@@ -22,7 +22,7 @@ services:
     ports:
       - '5432:5432'
 
-  redis:
+  redis_fullstack:
     image: redis
     command: redis-server
     ports:
@@ -30,20 +30,20 @@ services:
     volumes:
       - 'redis:/data'
 
-  sidekiq:
+  sidekiq_fullstack:
     depends_on:
       - db_postgresql
-      - redis
-      - rails_api
+      - redis_fullstack
+      - rails_api_fullstack
     build: .
     command: bundle exec sidekiq -C config/sidekiq.yml
     volumes:
       - .:/var/app
       - gem_cache:/usr/local/bundle/gems
     environment:
-      REDIS_URL_SIDEKIQ: redis://redis:6379/12
+      REDIS_URL_SIDEKIQ: redis://redis_fullstack:6379/12
 
-  rails_api:
+  rails_api_fullstack:
     build:
       context: . # present working directory
       dockerfile: Dockerfile
@@ -71,16 +71,16 @@ services:
     command: ['rails', 'server', '-p', '3000', '-b', '0.0.0.0']
     links:
       - db_postgresql
-      - redis
+      - redis_fullstack
     environment:
       RAILS_ENV: development
-      REDIS_URL_SIDEKIQ: redis://redis:6379/12
+      REDIS_URL_SIDEKIQ: redis://redis_fullstack:6379/12
     depends_on:
       - db_postgresql
-      - redis
+      - redis_fullstack
 
   # Front-end
-  client_angular:
+  client_angular_fullstack:
     build:
       context: ./angular
       dockerfile: Dockerfile.dev
@@ -95,4 +95,4 @@ services:
     environment:
       CHOKIDAR_USEPOLLING: 'true'
     depends_on:
-      - rails_api
+      - rails_api_fullstack
