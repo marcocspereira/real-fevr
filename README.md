@@ -4,6 +4,7 @@ As part of this [challenge](https://realfevr.github.io/challenge/).
 
 ## Disclaimer
 
+- When API runs for the 1st time, it uses seeds to generate players and 2 users (check inside db/ folder)
 - Front-end (Angular) app just allows to login, logout and list 1st 25 players with console log
 - For a full test/usage of API endpoints, at the moment, [Postman](https://www.postman.com/) is the recommended tool :/
 
