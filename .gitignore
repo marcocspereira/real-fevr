@@ -33,3 +33,5 @@
 
 .DS_Store
 angular/node_modules/
+angular/.angular
+angular/.vscode
