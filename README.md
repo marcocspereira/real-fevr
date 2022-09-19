@@ -130,3 +130,4 @@ Exceptionally, **Development** and **Test** environments have default values.
 - Remove the code smell that avoids to test a feature with Rails integration
 - Add specs to features that depends of Redis and Sidekiq
 - Fix task responsible for deleting notifications older then one week, since it is registered but it is not running
+- Implement subscriptions and players features on Front-end side
