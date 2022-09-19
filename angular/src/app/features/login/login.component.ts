@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this._authService.currentUser) {
-      //this._router.navigate([this._authService.currentUser.role.toLowerCase()]);
+      this._router.navigate(['board']);
     }
   }
 

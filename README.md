@@ -4,6 +4,10 @@ As part of this [challenge](https://realfevr.github.io/challenge/).
 
 **Disclaimer:** Front-end (Angular) app still not implemented. Just the boilerplate!
 
+## Users
+
+There are 2 users (basic and admin). Please check db/users.rb to get e-mail and password for login.
+
 ## Addresses
 
 ### API

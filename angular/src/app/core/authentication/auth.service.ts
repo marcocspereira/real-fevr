@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private _httpService: HttpClient, private _router: Router) {}
 
   get currentUser(): User {
-    return JSON.parse(localStorage.getItem('currentUser') || '{}');
+    return JSON.parse(localStorage.getItem('currentUser'));
   }
 
   login(email: string, password: string): Observable<User> | null {
@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   get token(): string {
-    return localStorage.getItem('token') || '{}';
+    return localStorage.getItem('token');
   }
 
   static isLogged(): boolean {

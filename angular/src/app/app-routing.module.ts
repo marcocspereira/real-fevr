@@ -7,7 +7,7 @@ import { LoggedInAuthGuard } from './core/authentication/guards/logged-in-auth.g
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'board',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
