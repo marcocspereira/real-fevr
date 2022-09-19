@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Player } from 'src/app/shared/models/player';
 import { AuthService } from '../../core/authentication/auth.service';
+import { PlayerService } from './services/player/player.service';
 
 @Component({
   selector: 'board',
@@ -7,9 +9,18 @@ import { AuthService } from '../../core/authentication/auth.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  constructor(private _authService: AuthService) {}
+  players: Player[];
+  constructor(
+    private _authService: AuthService,
+    private _playerService: PlayerService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._playerService.getPlayers().subscribe((players) => {
+      this.players = players;
+      console.log(players);
+    });
+  }
 
   logOut(): void {
     this._authService.logout();

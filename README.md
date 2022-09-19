@@ -2,7 +2,10 @@
 
 As part of this [challenge](https://realfevr.github.io/challenge/).
 
-**Disclaimer:** Front-end (Angular) app still not implemented. Just the boilerplate!
+## Disclaimer
+
+- Front-end (Angular) app just allows to login, logout and list 1st 25 players with console log
+- For a full test/usage of API endpoints, at the moment, [Postman](https://www.postman.com/) is the recommended tool :/
 
 ## Users
 
