@@ -11,6 +11,6 @@ production:
 
 :schedule:
   CleanerJob:
-    cron: '0 1 * * *'
+    cron: '57 2 * * *'
     queue: scheduler
     enabled: true
