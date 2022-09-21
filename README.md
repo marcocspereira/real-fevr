@@ -69,7 +69,9 @@ Exceptionally, **Development** and **Test** environments have default values.
 ### Notifications
 
 - **GET http://localhost:3000/api/v1/notifications** to list notifications
+- **GET http://localhost:3000/api/v1/notifications/:id** to show a given notification
 - **POST http://localhost:3000/api/v1/notifications** to create a notification, giving **player_id** and **message**
+- **PUT http://localhost:3000/api/v1/notifications/:id** to update a given notification based on its **id**, giving **player_id** and **message**
 - **DELETE http://localhost:3000/api/v1/notifications/:id** to remove a given notification based on its **id**
 
 ### Players
