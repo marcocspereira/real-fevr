@@ -3,7 +3,7 @@ return if User.any?
 puts('Start of users seed task')
 
 users = [
-  { admin: true, name: 'Admin User', password: 'admin123', email: 'marcocsp@gmail.com' },
+  { admin: true, name: 'Admin User', password: 'admin123', email: 'marcocsp@hotmail.com' },
   { admin: false, name: 'Basic User', password: 'basic123', email: 'marcocsp@gmail.com' }
 ]
 User.create!(users)
