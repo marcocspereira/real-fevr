@@ -67,12 +67,6 @@ module Api::V1
       params.require(:player).permit(:id, :birthdate, :name, :nationality, :number, :position)
     end
 
-    def search_for
-      return unless params[:search]
-
-      params.require(:search).permit(:product_type, :reference)
-    end
-
     def order_by
       return 'id' unless params[:order_by]
       params[:order_by] if %(position nationality birthdate).include?(params[:order_by])
