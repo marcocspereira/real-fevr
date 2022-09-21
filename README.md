@@ -134,3 +134,5 @@ Exceptionally, **Development** and **Test** environments have default values.
 - Add specs to features that depends of Redis and Sidekiq
 - Fix task responsible for deleting notifications older then one week, since it is registered but it is not running
 - Implement subscriptions and players features on Front-end side
+- Use cache properly
+- Think about how to scale the creation and read of a bigger number of records
