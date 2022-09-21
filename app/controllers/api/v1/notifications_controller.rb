@@ -10,12 +10,29 @@ module Api::V1
              json: NotificationSerializer.new(notifications).serialize
     end
 
+    # GET api/v1/notifications/:id
+    def show
+      notification = Notification.find(params[:id])
+
+      render status: :ok,
+             json: NotificationSerializer.new(notification).serialize
+    end
+
     # POST api/v1/notifications
     def create
       notification = Notification.new(notification_params)
       notification.save!
 
       render status: :created,
+             json: NotificationSerializer.new(notification).serialize
+    end
+
+    # PUT api/v1/notifications/:id
+    def update
+      notification = Notification.find(params[:id])
+      notification.update!(notification_params)
+
+      render status: :ok,
              json: NotificationSerializer.new(notification).serialize
     end
 

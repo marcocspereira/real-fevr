@@ -30,6 +30,7 @@
 
 .env.*
 .byebug_history
+coverage/*
 
 .DS_Store
 angular/node_modules/
